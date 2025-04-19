@@ -1,0 +1,5 @@
+what is a computer?|it is a machine.
+what is ai?|it stands for artificial intelligence.
+what is a cat?|A cat is a small domesticated carnivorous mammal.
+who invented java?|James Gosling invented Java in 1995.
+what is a common pet?|the dog is a common pet.

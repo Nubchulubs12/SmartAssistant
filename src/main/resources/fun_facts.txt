@@ -1,0 +1,2 @@
+what is a cat?|A cat is a small domesticated carnivorous mammal.
+who invented java?|James Gosling invented Java in 1995.
