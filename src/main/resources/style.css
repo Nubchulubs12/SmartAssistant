@@ -1,0 +1,25 @@
+.root {
+    -fx-background-color: #1e1e2f;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+}
+
+.text-area {
+    -fx-control-inner-background: #2a2a3b;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: #3a3a4a;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #4e8cff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}

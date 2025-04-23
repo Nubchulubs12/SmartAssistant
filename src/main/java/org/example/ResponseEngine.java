@@ -2,18 +2,18 @@ package org.example;
 import java.io.*;
 import java.util.HashMap;
 
-public class ResponseEngine {
-    private final HashMap<String, String> learnedResponse = new HashMap<>();
-    private final String FILE_PATH = getResourcePath("learned.txt");
+
+public class ResponseEngine extends AbstractMemory {
 
     public ResponseEngine() {
-        loadLearnedData();
+        super("src/main/resources/learned.txt");
     }
 
     public String getResponse(String input) {
         String cleanedInput = input.trim().toLowerCase();
 
-    if (cleanedInput.startsWith("learn:")) {
+
+        if (cleanedInput.startsWith("learn:")) {
         String content = cleanedInput.substring(6).trim();
         String[] parts= content.split("\\?",2);
 
@@ -155,7 +155,8 @@ public class ResponseEngine {
         if (cleanedInput.equals("clear memory")) {
             learnedResponse.clear();
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {// Wipe learned.txt
+            try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+                writer.print("");
             } catch (IOException e) {
                 return "Error clearing memory: " + e.getMessage();
             }
@@ -163,6 +164,18 @@ public class ResponseEngine {
             return "All memory has been cleared.";
         }
 
+        String mathPattern = "(\\d+)\\s*([+\\-*/])\\s*(\\d+)";
+        java.util.regex.Matcher matcher = java.util.regex.Pattern.compile(mathPattern).matcher(cleanedInput);
+
+        if (matcher.find()) {
+            try {
+                String expression = matcher.group(1) + matcher.group(2) + matcher.group(3);
+                int result = evalSimpleExpression(expression);
+                return "The answer is: " + result;
+            } catch (Exception e) {
+                System.out.println("Failed to evaluate math: " + e.getMessage());
+            }
+        }
 
         for (String key : learnedResponse.keySet()) {
             if (isSimilar(cleanedInput, key)) {
@@ -182,62 +195,22 @@ public class ResponseEngine {
             case "what day is it":
                 return java.time.LocalDate.now().toString();
             default:
-                return "Hmm... I’m still learning! Try asking something else.";
-        }
-    }
 
-    private void saveLearnedData(String question, String answer) {
-        try(FileWriter fw = new FileWriter(FILE_PATH,true);
-        BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw)) {
-            out.println(question + "|" + answer);
-        } catch (IOException e) {
-            System.out.println("Error saving learned data:" + e.getMessage());
-        }
-    }
+                String aiResponse = GroqApi.ask(input);
 
-    private void loadLearnedData() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) return;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\\|", 2);
-                if (parts.length == 2) {
-
-                    learnedResponse.put(parts[0].trim(), parts[1].trim());
+                if (aiResponse == null || aiResponse.toLowerCase().startsWith("error")) {
+                    return "Hmm... I'm having trouble reaching my AI brain right now.";
                 }
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading learned data: " + e.getMessage());
+                String trimmedInput = input.trim();
+                if (!learnedResponse.containsKey(trimmedInput)) {
+                    learnedResponse.put(trimmedInput, aiResponse);
+                    saveLearnedData(trimmedInput, aiResponse);
+                    overwriteLearnedFile();
+                }
+                return aiResponse;
+
+
+
         }
     }
-
-    private void overwriteLearnedFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
-            for (String question : learnedResponse.keySet()) {
-                String answer = learnedResponse.get(question);
-                writer.println(question + "|" + answer);
-            }
-        } catch (IOException e) {
-            System.out.println("Error updating learned data: " + e.getMessage());
-        }
-    }
-
-    private boolean isSimilar(String input, String storedKey) {
-        String cleanInput = input.replaceAll("[^a-z0-9]", "").toLowerCase();
-        String cleanKey = storedKey.replaceAll("[^a-z0-9]", "").toLowerCase();
-
-        return cleanInput.equals(cleanKey)
-                || cleanInput.contains(cleanKey)
-                || cleanKey.contains(cleanInput);
-    }
-
-    private String getResourcePath(String fileName) {
-        return "src/main/resources/" + fileName;
-    }
-
-
 }
