@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AbstractMemory {
     protected final HashMap<String, String> learnedResponse = new HashMap<>();
@@ -80,6 +81,29 @@ public class AbstractMemory {
 
         throw new IllegalArgumentException("Unsupported math format");
     }
+//for desktop maninpulation
+    protected String handleAppLaunch(String input) {
+        String cleanedInput = input.toLowerCase().trim();
+
+        Map<String, String> appCommands = new HashMap<>();
+        appCommands.put("notepad", "notepad");
+        appCommands.put("chrome", "cmd /c start chrome");
+        appCommands.put("calculator", "calc");
+
+        for (String key : appCommands.keySet()) {
+            if (cleanedInput.contains("open " + key)) {
+                try {
+                    Runtime.getRuntime().exec(appCommands.get(key));
+                    return "Opening " + key + "...";
+                } catch (IOException e) {
+                    return "Could not open " + key + ": " + e.getMessage();
+                }
+            }
+        }
+
+        return null; // Return null if no match
+    }
+
 
 
 }

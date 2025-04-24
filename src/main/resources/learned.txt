@@ -1,45 +1,26 @@
 what is a black hole?|A black hole is a supermassive black hole that has a mass of at least 10 billion times the mass of the Sun .
 what is a cow?|A cow is a mammal , a ruminant mammal , or a domestic animal .
+what is a tiger|A majestic creature!
 what is ai?|it stands for artificial intelligence.
 what is a cat?|A cat is a small domesticated carnivorous mammal.
 who invented java?|James Gosling invented Java in 1995.
+how small is an ant|Ants are incredibly small! The size of an ant can vary depending on the species, but on average, an adult ant is between 1-2 millimeters (0.04-0.08 inches) in length. That's smaller than a grain of rice!
 how big was the titanic|The RMS Titanic was a massive ship, and its size was one of the reasons it was considered unsinkable. Here are some key dimensions:
-
-**Length:** The Titanic was 882 feet 9 inches (269 m) long from stem to stern, making it one of the longest ships in the world at the time.
-
-**Beam (width):** The ship was 92 feet 6 inches (28.2 m) wide at its widest point, which was just below the bridge deck.
-
-**Height:** The Titanic's height from the waterline to the boat deck was 65 feet (19.8 m).
-
-**Gross Tonnage:** The ship had a gross tonnage of 46,328 tons, which is a measure of the ship's internal volume.
-
-**Displacement:** The Titanic displaced approximately 66,000 tons of water, making it a massive vessel.
-
-**Decks:** The ship had nine decks, including:
-
-1. Orlop deck (the lowest deck)
-2. Tank top deck
-3. Boiler deck
-4. Saloon deck
-5. Promenade deck
-6. Boat deck
-7. Bridge deck
-8. Poop deck (the highest deck)
-9. Crow's nest (the very top of the ship)
-
-**Speed:** The Titanic was designed to travel at a speed of around 21 knots (24 mph or 39 km/h), making it one of the fastest ships in the world at the time.
-
-**Passenger capacity:** The ship could accommodate over 3,500 passengers and crew, including:
-
-* First-class passengers: approximately 500
-* Second-class passengers: approximately 1,000
-* Third-class passengers: approximately 1,800
-* Crew: approximately 885
-
-Keep in mind that these numbers are approximate, as the ship's exact dimensions and capacities varied slightly depending on the source. However, the Titanic's massive size and luxurious amenities made it one of the most impressive ships of its time
 what is a computer?|it is a machine.
 whats the most common eye color for humans|The most common eye color for humans is brown. According to a study published in the journal "Human Genetics," approximately 79% of the world's population has brown eyes.
 whats the largest flying bird still alive|The largest flying bird still alive is the Wandering Albatross (Diomedea exulans). On average, it has a wingspan of around 11.5 feet (3.5 meters) and can weigh up to 25 pounds (11 kilograms). However, some individuals have been known to have a wingspan of up to 12 feet (3.6 meters) or more!
+what is a lion|A lion (Panthera leo) is a majestic and powerful big cat that is native to Africa and India. It is a member of the Felidae family and is also known as the "king of beasts" due to its regal appearance and dominant position in its habitat.
+
+Physical Characteristics:
+
+* Lions are large cats with a sturdy build and a short, tawny or golden coat with a long mane that covers the head, neck, and shoulders.
+* Males typically weigh between 330-550 pounds (150-250 kg) and females weigh between 260-400 pounds (120-180 kg).
+* They have a long tail with a tuft of hair at the end, which helps them balance while running or climbing.
+* Their eyes are yellow or golden, and their ears are tufted with long hair.
+
+Behavior and Habitat:
+
+* Lions are social animals that live in prides, which are typically made up of several females, their cubs, and one or more
 how far away is the sun from earth|The average distance from the Earth to the Sun is about 93 million miles (149.6 million kilometers). This distance is constantly changing due to the elliptical shape of Earth's orbit around the Sun.
 what is a wingspan of an ostrich|The wingspan of an ostrich is quite impressive!
 how big is a deer|The size of a deer can vary depending on the species, but here are some general dimensions for some common species of deer:

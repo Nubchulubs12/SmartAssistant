@@ -1,6 +1,7 @@
 package org.example;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -64,12 +65,29 @@ public class MainGUI extends Application {
     }
     private void sendMessage(TextArea chatArea, TextField inputField) {
         String userInput = inputField.getText().trim();
-        if (!userInput.isEmpty()) {
-            String response = engine.getResponse(userInput);
-            chatArea.appendText("You: " + userInput + "\n");
+        if (userInput.isEmpty()) return;
+
+        chatArea.appendText("You: " + userInput + "\n");
+
+        // Run AI logic on a background thread
+        Task<String> responseTask = new Task<>() {
+            @Override
+            protected String call() {
+                return engine.getResponse(userInput);
+            }
+        };
+
+        responseTask.setOnSucceeded(event -> {
+            String response = responseTask.getValue();
             chatArea.appendText("AI: " + response + "\n\n");
             inputField.clear();
-        }
+        });
+
+        responseTask.setOnFailed(event -> {
+            chatArea.appendText("AI: Sorry, something went wrong.\n\n");
+        });
+
+        new Thread(responseTask).start(); // 🚀 Run the task
     }
     public static void main(String[] args) {
         launch(args);

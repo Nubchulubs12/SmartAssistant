@@ -26,8 +26,8 @@ public class GroqApi {
         JsonObject payload = new JsonObject();
         payload.addProperty("model", MODEL);
         payload.add("messages", messages);
-        payload.addProperty("max_tokens", 400);
-        payload.addProperty("temperature", 0.5);
+        payload.addProperty("max_tokens", 200);
+        payload.addProperty("temperature", 0.3);
 
 
 

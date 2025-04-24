@@ -1,7 +1,8 @@
 package org.example;
 import java.io.*;
 import java.util.HashMap;
-
+import java.awt.Desktop;
+import java.util.Map;
 
 public class ResponseEngine extends AbstractMemory {
 
@@ -195,7 +196,11 @@ public class ResponseEngine extends AbstractMemory {
             case "what day is it":
                 return java.time.LocalDate.now().toString();
             default:
-
+                String launchResponse = handleAppLaunch(input);
+                if (launchResponse != null) {
+                    return launchResponse;
+                }
+                
                 String aiResponse = GroqApi.ask(input);
 
                 if (aiResponse == null || aiResponse.toLowerCase().startsWith("error")) {
