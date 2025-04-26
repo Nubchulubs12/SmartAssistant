@@ -7,7 +7,8 @@ import java.util.Map;
 public class ResponseEngine extends AbstractMemory {
 
     public ResponseEngine() {
-        super("src/main/resources/learned.txt");
+        super("learned.txt");
+//        "src/main/resources/learned.txt")
     }
 
     public String getResponse(String input) {
@@ -15,36 +16,36 @@ public class ResponseEngine extends AbstractMemory {
 
 
         if (cleanedInput.startsWith("learn:")) {
-        String content = cleanedInput.substring(6).trim();
-        String[] parts= content.split("\\?",2);
+            String content = cleanedInput.substring(6).trim();
+            String[] parts = content.split("\\?", 2);
 
-        if (parts.length == 2) {
-            String question = parts[0].trim() + "?";
-            String answer = parts[1].trim();
+            if (parts.length == 2) {
+                String question = parts[0].trim() + "?";
+                String answer = parts[1].trim();
 
-            learnedResponse.put(question, answer);
-            saveLearnedData(question, answer);
-            overwriteLearnedFile();
+                learnedResponse.put(question, answer);
+                saveLearnedData(question, answer);
+                overwriteLearnedFile();
 
-            return "Got it! I've learned how to answer: \"" + question + "\"";
-        } else {
-            return "Hmm.. use the format: learn: your question? your answer";
+                return "Got it! I've learned how to answer: \"" + question + "\"";
+            } else {
+                return "Hmm.. use the format: learn: your question? your answer";
+            }
         }
-    }
 
-    if (cleanedInput.startsWith("forget:")) {
-        String question = cleanedInput.substring(7).trim();
-        if (!question.endsWith("?")) {
-            question += "?";
+        if (cleanedInput.startsWith("forget:")) {
+            String question = cleanedInput.substring(7).trim();
+            if (!question.endsWith("?")) {
+                question += "?";
+            }
+            if (learnedResponse.containsKey(question)) {
+                learnedResponse.remove(question);
+                overwriteLearnedFile();
+                return "Okay, I've forgotten how to answer \"" + question + "\"";
+            } else {
+                return "I don't remember learning that one.";
+            }
         }
-        if (learnedResponse.containsKey(question)) {
-            learnedResponse.remove(question);
-            overwriteLearnedFile();
-            return "Okay, I've forgotten how to answer \"" + question + "\"";
-        } else {
-            return "I don't remember learning that one.";
-        }
-    }
 
         if (cleanedInput.equals("list learned")) {
             if (learnedResponse.isEmpty()) {
@@ -77,7 +78,7 @@ public class ResponseEngine extends AbstractMemory {
 
             File exportFile = new File(getResourcePath("memory_export.txt"));
 
-            try(PrintWriter writer = new PrintWriter(new FileWriter(exportFile))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(exportFile))) {
                 for (String question : learnedResponse.keySet()) {
                     String answer = learnedResponse.get(question);
                     writer.println(question + "|" + answer
@@ -118,7 +119,7 @@ public class ResponseEngine extends AbstractMemory {
             }
         }
 
-        if(cleanedInput.startsWith("import")) {
+        if (cleanedInput.startsWith("import")) {
             String fileName = cleanedInput.substring(7).trim();
 
             if (!fileName.endsWith(".txt")) {
@@ -133,9 +134,9 @@ public class ResponseEngine extends AbstractMemory {
 
             int importedCount = 0;
 
-            try(BufferedReader reader = new BufferedReader(new FileReader(imortFile))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(imortFile))) {
                 String line;
-                while((line = reader.readLine()) !=null) {
+                while ((line = reader.readLine()) != null) {
                     String[] parts = line.split("\\|", 2);
                     if (parts.length == 2) {
                         String question = parts[0].trim();
@@ -148,7 +149,7 @@ public class ResponseEngine extends AbstractMemory {
                 }
                 overwriteLearnedFile();
                 return "Imported " + importedCount + " new memory items from " + fileName;
-            }catch (IOException e) {
+            } catch (IOException e) {
                 return "Something went wrong while importing from " + fileName + ": " + e.getMessage();
             }
         }
@@ -183,37 +184,37 @@ public class ResponseEngine extends AbstractMemory {
                 return learnedResponse.get(key);
             }
         }
-        switch (cleanedInput) {
-            case "hi":
-            case "hello":
-                return "Hey there! How can I help you?";
-            case "how are you":
-                return "I'm doing well — just thinking in binary!";
-            case "what is your name":
-                return "I'm your Java AI Assistant.";
-            case "what time is it":
-                return java.time.LocalTime.now().toString();
-            case "what day is it":
-                return java.time.LocalDate.now().toString();
-            default:
-                String launchResponse = handleAppLaunch(input);
-                if (launchResponse != null) {
-                    return launchResponse;
-                }
-                
-                String aiResponse = GroqApi.ask(input);
+        if (cleanedInput.contains("hi") || cleanedInput.contains("hello")) {
+            return "Hey there! How can I help you?";
+        } else if (cleanedInput.contains("how are you")) {
+            return "I'm doing well — just thinking in binary!";
+        } else if (cleanedInput.contains("what is your name")) {
+            return "My name is Automis the AI.";
+        } else if (cleanedInput.contains("favorite color")) {
+            System.out.println("CLEANED INPUT: " + cleanedInput);
+            return "My creator says my favorite color is blue.";
+        } else if (cleanedInput.contains("what time is it")) {
+            return java.time.LocalTime.now().toString();
+        } else if (cleanedInput.contains("what day is it")) {
+            return java.time.LocalDate.now().toString();
+        } else {
+            String launchResponse = handleAppLaunch(input);
+            if (launchResponse != null) {
+                return launchResponse;
+            }
 
-                if (aiResponse == null || aiResponse.toLowerCase().startsWith("error")) {
-                    return "Hmm... I'm having trouble reaching my AI brain right now.";
-                }
-                String trimmedInput = input.trim();
-                if (!learnedResponse.containsKey(trimmedInput)) {
-                    learnedResponse.put(trimmedInput, aiResponse);
-                    saveLearnedData(trimmedInput, aiResponse);
-                    overwriteLearnedFile();
-                }
-                return aiResponse;
+            String aiResponse = GroqApi.ask(input);
 
+            if (aiResponse == null || aiResponse.toLowerCase().startsWith("error")) {
+                return "Hmm... I'm having trouble reaching my AI brain right now.";
+            }
+            String trimmedInput = input.trim();
+            if (!learnedResponse.containsKey(trimmedInput)) {
+                learnedResponse.put(trimmedInput, aiResponse);
+                saveLearnedData(trimmedInput, aiResponse);
+                overwriteLearnedFile();
+            }
+            return aiResponse;
 
 
         }

@@ -60,9 +60,9 @@ public class AbstractMemory {
                 || cleanInput.contains(cleanKey)
                 || cleanKey.contains(cleanInput);
     }
-
+//"src/main/resources/" +
     protected String getResourcePath(String fileName) {
-        return "src/main/resources/" + fileName;
+        return fileName;
     }
     protected int evalSimpleExpression(String expr) {
         if (expr.contains("+")) {
@@ -101,7 +101,7 @@ public class AbstractMemory {
             }
         }
 
-        return null; // Return null if no match
+        return null;
     }
 
 
