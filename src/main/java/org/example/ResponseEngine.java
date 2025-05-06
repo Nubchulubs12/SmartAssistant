@@ -14,6 +14,25 @@ public class ResponseEngine extends AbstractMemory {
     public String getResponse(String input) {
         String cleanedInput = input.trim().toLowerCase();
 
+        if (cleanedInput.equals("list files") || cleanedInput.equals("dir")) {
+            return listDirectory();
+        }
+        if (cleanedInput.startsWith("cd ")) {
+            String path = cleanedInput.substring(3).trim();
+            return changeDirectory(path);
+        }
+        if (cleanedInput.startsWith("open file ")) {
+            String fileName = cleanedInput.substring(10).trim();
+            return openFile(fileName);
+        }
+        if (cleanedInput.equals("pwd") || cleanedInput.equals("where am i")) {
+            return getCurrentDirectory();
+        }
+        if (cleanedInput.startsWith("run ")) {
+            String command = input.substring(4).trim();
+            return executeSystemCommand(command);
+        }
+
 
         if (cleanedInput.startsWith("learn:")) {
             String content = cleanedInput.substring(6).trim();
@@ -188,12 +207,18 @@ public class ResponseEngine extends AbstractMemory {
             return "Hey there! How can I help you?";
         } else if (cleanedInput.contains("how are you")) {
             return "I'm doing well — just thinking in binary!";
-        } else if (cleanedInput.contains("what is your name")) {
+        } else if (cleanedInput.contains("your name")) {
             return "My name is Automis the AI.";
         } else if (cleanedInput.contains("favorite color")) {
             System.out.println("CLEANED INPUT: " + cleanedInput);
             return "My creator says my favorite color is blue.";
-        } else if (cleanedInput.contains("what time is it")) {
+        } else if (cleanedInput.contains("made you")) {
+            System.out.println("CLEANED INPUT: " + cleanedInput);
+            return "My creators name is Nick.";
+        }else if (cleanedInput.contains("created you")) {
+            System.out.println("CLEANED INPUT: " + cleanedInput);
+            return "My creators name is Nick.";
+        }else if (cleanedInput.contains("what time is it")) {
             return java.time.LocalTime.now().toString();
         } else if (cleanedInput.contains("what day is it")) {
             return java.time.LocalDate.now().toString();

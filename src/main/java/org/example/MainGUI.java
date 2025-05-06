@@ -87,7 +87,7 @@ public class MainGUI extends Application {
             chatArea.appendText("AI: Sorry, something went wrong.\n\n");
         });
 
-        new Thread(responseTask).start(); // 🚀 Run the task
+        new Thread(responseTask).start();
     }
     public static void main(String[] args) {
         launch(args);
